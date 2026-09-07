@@ -26,15 +26,7 @@ local function contains(list, pattern)
     return false
   end
 
-  local values = stringaux.strsplit(",", list)
-
-  for _, value in ipairs(values) do
-    if string.find(string.lower(value), pattern, 1, true) then
-      return true
-    end
-  end
-
-  return false
+  return string.find(string.lower(tostring(list)), pattern, 1, true) ~= nil
 end
 
 local function audit_algorithms(parsed, findings)
@@ -292,7 +284,7 @@ action = function(host, port)
 
   end
 
-  if next(finding_output) then
+  if #findings > 0 then
     output["Findings"] = finding_output
   else
     output["Findings"] = "No weak algorithms detected"
@@ -312,7 +304,7 @@ action = function(host, port)
 
   end
 
-  if next(recommendations) then
+  if #findings > 0 then
     output["Recommendations"] = recommendations
   end
 

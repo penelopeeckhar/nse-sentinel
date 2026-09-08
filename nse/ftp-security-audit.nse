@@ -18,7 +18,11 @@ local shortport = require "shortport"
 local stdnse = require "stdnse"
 local string = require "string"
 
-portrule = shortport.port_or_service({21, 990}, {"ftp", "ftps"})
+portrule = function(host, port)
+  return port.protocol == "tcp" and port.state == "open" and
+         (port.number == 21 or port.service == "ftp" or
+          port.service == "ccproxy-ftp")
+end
 
 local function add_finding(findings, name, severity, status, recommendation)
   findings[#findings + 1] = {

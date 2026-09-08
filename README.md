@@ -29,54 +29,11 @@ The project focuses on **automated security assessment rather than exploitation*
 
 ## 🏗️ Architecture
 
-```text
-                         ┌─────────────────────┐
-                         │       Target        │
-                         │   Authorized Lab    │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │  sentinel-scan.sh   │
-                         │   Orchestration     │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │        Nmap         │
-                         │ Service Discovery   │
-                         └──────────┬──────────┘
-                                    │
-             ┌──────────────────────┼──────────────────────┐
-             │                      │                      │
-             ▼                      ▼                      ▼
-      ┌─────────────┐        ┌─────────────┐        ┌─────────────┐
-      │ HTTP Audit  │        │  SSH Audit  │        │  FTP Audit  │
-      └─────────────┘        └─────────────┘        └─────────────┘
-             │                      │                      │
-             └──────────────────────┼──────────────────────┘
-                                    │
-             ┌──────────────────────┼──────────────────────┐
-             │                      │                      │
-             ▼                      ▼                      ▼
-      ┌─────────────┐        ┌─────────────┐        ┌─────────────┐
-      │  SMB Audit  │        │ MySQL Audit │        │ Info Audit  │
-      └─────────────┘        └─────────────┘        └─────────────┘
-             │                      │                      │
-             └──────────────────────┼──────────────────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │   Risk Aggregation  │
-                         │   Score + Severity  │
-                         └──────────┬──────────┘
-                                    │
-                         ┌──────────┴──────────┐
-                         ▼                     ▼
-                ┌─────────────────┐   ┌─────────────────┐
-                │   TXT Report    │   │   HTML Report   │
-                └─────────────────┘   └─────────────────┘
-```
+![NSE-Sentinel Architecture](screenshots/architecture.png)
+
+NSE-Sentinel follows a modular security auditing pipeline, from service
+discovery and service-specific NSE audits to risk aggregation and report
+generation.
 
 ---
 
@@ -493,19 +450,8 @@ nse-sentinel/
 ├── lib/
 │   └── sentinel_utils.lua
 │
-├── docs/
-│
-├── lab/
-│
-├── scans/
-│
 ├── screenshots/
-│
-├── tests/
-│
-├── reports/
-│   ├── raw/
-│   └── generated/
+│   └── architecture.png
 │
 ├── sentinel-scan.sh
 ├── sentinel-report.sh
@@ -514,7 +460,6 @@ nse-sentinel/
 ├── README.md
 ├── LICENSE
 └── .gitignore
-```
 
 ---
 
